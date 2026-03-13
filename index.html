@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ameriluvmoo - Official</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+/* ปรับโทนสีเป็น เขียว ชมพู ครีม ตามที่ขอ */
+--bg:#F9FBE7; /* ครีมเขียวอ่อน */
+--main:#A5D6A7; /* เขียวพาสเทล */
+--dark:#D81B60; /* ชมพูเข้มสำหรับตัวหนังสือ */
+--white:#FFFFFF;
+--glow:rgba(165, 214, 167, 0.4);
+--pink-soft: #FCE4EC; /* ชมพูอ่อน */
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
+
+body{
+background: var(--bg);
+/* เพิ่มอิโมจิรอบๆ พื้นหลัง */
+background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-size='12'%3E🎼%3C/text%3E%3Ctext x='50' y='80' font-size='12'%3E🍀%3C/text%3E%3Ctext x='80' y='20' font-size='12'%3E🎀%3C/text%3E%3C/svg%3E");
+display:flex;
+justify-content:center;
+}
+
+.container{
+max-width:500px;
+width:100%;
+padding:20px 15px 40px;
+}
+
+.section{
+background:var(--white);
+border-radius:20px;
+padding:25px 20px;
+margin-bottom:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.05);
+border:2px solid var(--main);
+}
+
+h1,h2,h3{color:var(--dark);}
+.center{text-align:center;}
+
+/* Animation โลโก้ลอยขึ้นลง */
+@keyframes float {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-15px); }
+	100% { transform: translateY(0px); }
+}
+
+.logo{
+width:150px;height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:0 auto 20px;
+box-shadow:0 6px 20px var(--glow);
+animation: float 3s ease-in-out infinite; /* ใส่ animation ที่นี่ */
+background: var(--pink-soft); /* รองรับกรณีไม่มีรูปโลโก้ */
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.logo img{width:100%;height:100%;object-fit:cover;}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-bottom:20px;
+}
+
+.badge{
+background:#fff;
+padding:8px 16px;
+border-radius:25px;
+box-shadow:0 4px 10px var(--glow);
+font-size:13px;
+color:var(--dark);
+border: 1px solid var(--main);
+}
+
+.btn{
+display:block;
+text-align:center;
+padding:14px;
+border-radius:25px;
+text-decoration:none;
+margin-top:15px;
+font-weight:500;
+transition: 0.3s;
+}
+
+.btn-outline{
+background:#fff;
+border:2px dashed var(--main);
+color:var(--dark);
+}
+
+.btn-main{
+background:var(--main);
+color:#fff;
+}
+
+.btn-main:hover {
+    background: var(--dark);
+}
+
+.step{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:12px;
+}
+
+.step-num{
+background:var(--main);
+color:#fff;
+width:26px;height:26px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:13px;
+}
+
+.price-row{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+background:#F1F8E9;
+padding:10px 15px;
+border-radius:15px;
+border-left: 4px solid var(--main);
+}
+
+.price-tag{
+background:var(--dark);
+color:#fff;
+padding:3px 12px;
+border-radius:20px;
+font-size:14px;
+}
+
+.footer{
+text-align:center;
+margin-top:30px;
+}
+
+.socials{
+display:flex;
+gap:8px;
+justify-content:center;
+margin-top:15px;
+}
+
+.socials a{
+flex:1;
+max-width:100px;
+text-align:center;
+padding:8px;
+border-radius:25px;
+background:#fff;
+text-decoration:none;
+color:var(--dark);
+font-size:13px;
+border:1px solid var(--main);
+}
+
+.small{font-size:12px;opacity:.7;margin-top:10px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="section center" style="border:none;box-shadow:none;background:transparent;">
+
+<div class="logo">
+<img src="logo.jpg" alt="Ameriluvmoo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:40px&quot;>🍀</span>'">
+</div>
+
+<h1>Ameriluvmoo</h1>
+<p style="color:var(--dark);opacity:.8;margin:10px 0 20px; font-weight: 500;">
+อาเมริรับแต่งฟอร์ม ซิม นะคะ สอบถามเพิ่มเติมดีเอมมาได้เลย ! 🎀
+</p>
+
+<div class="badges">
+<div class="badge">🎼 รับแต่งฟอร์ม</div>
+<div class="badge">🍀 รับแต่งซิม</div>
+<div class="badge">🎀 ราคาถูก</div>
+</div>
+
+<a href="https://line.me/ti/p/spUXkAegyd" target="_blank" class="btn btn-outline">
+เช็คคิวงานที่นี่ ✨
+</a>
+</div>
+
+<div class="section">
+<h2>📝 ขั้นตอนสั่งงาน</h2>
+
+<div class="step"><div class="step-num">1</div><div>เลือกแพ็คเกจฟอร์มที่ต้องการ</div></div>
+<div class="step"><div class="step-num">2</div><div>ส่งรายละเอียด/บรีฟงาน</div></div>
+<div class="step"><div class="step-num">3</div><div>ชำระเงินตามยอดที่แจ้ง</div></div>
+<div class="step"><div class="step-num">4</div><div>รอรับงานตามคิวที่แจ้งไว้</div></div>
+<div class="step"><div class="step-num">5</div><div>ตรวจสอบความเรียบร้อย</div></div>
+
+<a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">ทักแชทสั่งงานเลย 💬</a>
+</div>
+
+<div class="section">
+<h2>💰 ราคางานฟอร์ม</h2>
+
+<div class="price-row"><span>ฟอร์มสั้น</span><span class="price-tag">10฿+</span></div>
+<div class="price-row"><span>ฟอร์มยาว</span><span class="price-tag">20฿+</span></div>
+<div class="price-row"><span>5 ฟอร์ม</span><span class="price-tag">35฿</span></div>
+<div class="price-row"><span>10 ฟอร์ม</span><span class="price-tag">75฿</span></div>
+<div class="price-row"><span>15 ฟอร์ม</span><span class="price-tag">130฿</span></div>
+<div class="price-row"><span>20 ฟอร์ม</span><span class="price-tag">170฿</span></div>
+
+<a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">สอบถามราคาอื่นๆ</a>
+</div>
+
+<div class="footer">
+<a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">ติดต่อสอบถามคลิก 🎀</a>
+
+<div class="socials">
+<a href="https://www.facebook.com/share/1Agw34NCNf/" target="_blank">Facebook</a>
+<a href="https://www.instagram.com/jalloluvameri?igsh=MXE5eDI3bXY0N255bw==" target="_blank">Instagram</a>
+<a href="https://line.me/ti/p/v5pMQcDUzh" target="_blank">LINE</a>
+</div>
+
+<p class="small">
+© 2026 Ameriluvmoo
+</p>
+</div>
+
+</div>
+</body>
+</html>
