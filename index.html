@@ -9,13 +9,12 @@
 
 <style>
 :root{
-/* โทนสีเดิมที่คุณเลือก เขียว ชมพู ครีม */
---bg:#F9FBE7; /* ครีมเขียวอ่อน */
---main:#A5D6A7; /* เขียวพาสเทล */
---dark:#D81B60; /* ชมพูเข้มสำหรับตัวหนังสือ */
+--bg:#F9FBE7; 
+--main:#A5D6A7; 
+--dark:#D81B60; 
 --white:#FFFFFF;
 --glow:rgba(165, 214, 167, 0.4);
---pink-soft: #FCE4EC; /* ชมพูอ่อน */
+--pink-soft: #FCE4EC;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif;}
@@ -24,57 +23,71 @@ body{
 background: var(--bg);
 display:flex;
 justify-content:center;
-position: relative; /* สำคัญสำหรับ elements ที่ลอย */
-overflow-x: hidden; /* กันสกอลบาร์แนวนอน */
+position: relative;
+overflow-x: hidden;
 min-height: 100vh;
 }
 
-/* ================================================= */
-/* === [CSS แก้ไขใหม่] เพิ่มระบบอิโมจิลอยอย่างอิสระ === */
-/* ================================================= */
-
-/* container สำหรับอิโมจิ */
+/* === พื้นหลังอิโมจิแบบเขย่าแก้ว === */
 #floating-emojis {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* เพื่อให้คลิกทะลุไปที่เว็บได้ */
-    z-index: 0; /* อยู่หลังเนื้อหา */
+    pointer-events: none;
+    z-index: 0;
 }
 
 .floating-emoji {
     position: absolute;
-    opacity: 0; /* เริ่มต้นซ่อนไว้ */
     will-change: transform, opacity;
 }
 
-/* Animation สำหรับอิโมจิลอย */
-@keyframes floatAndFade {
+/* Animation การลอยแบบสลับทิศทางเหมือนเขย่าแก้วเบาๆ */
+@keyframes glassShake {
     0% {
-        transform: translateY(110vh) translateX(0);
-        opacity: 0;
+        transform: translateY(110vh) translateX(0) rotate(0deg);
     }
-    10% {
-        opacity: var(--base-opacity); /* ความเข้มที่กำหนดไว้ */
+    25% {
+        transform: translateY(80vh) translateX(15px) rotate(10deg);
     }
-    90% {
-        opacity: var(--base-opacity);
+    50% {
+        transform: translateY(50vh) translateX(-15px) rotate(-10deg);
+    }
+    75% {
+        transform: translateY(20vh) translateX(10px) rotate(5deg);
     }
     100% {
-        transform: translateY(-10vh) translateX(var(--wobble)); /* ลอยขึ้นและส่าย */
-        opacity: 0;
+        transform: translateY(-15vh) translateX(0) rotate(0deg);
     }
 }
 
-/* ================================================= */
+/* === โลโก้ลอยแบบอิสระสลับไปมา === */
+@keyframes logoFloating {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(5px, -15px) rotate(2deg); }
+    66% { transform: translate(-5px, -10px) rotate(-2deg); }
+}
+
+.logo{
+width:150px;height:150px;
+border-radius:50%;
+overflow:hidden;
+margin:0 auto 20px;
+box-shadow:0 6px 20px var(--glow);
+animation: logoFloating 5s ease-in-out infinite;
+background: var(--pink-soft);
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
-position: relative; /* ให้ container อยู่เหนือกราฟิกพื้นหลัง */
+position: relative;
 z-index: 1; 
 }
 
@@ -89,32 +102,6 @@ border:2px solid var(--main);
 
 h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
-
-/* ================================================= */
-/* === [CSS แก้ไขใหม่] โลโก้ลอยนุ่มนวลขึ้น === */
-/* ================================================= */
-@keyframes floatLogo {
-    0% { transform: translateY(0px) rotate(0deg); }
-    25% { transform: translateY(-12px) rotate(1deg); }
-    50% { transform: translateY(-5px) rotate(-1deg); }
-    75% { transform: translateY(-15px) rotate(0deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-}
-
-.logo{
-width:150px;height:150px;
-border-radius:50%;
-overflow:hidden;
-margin:0 auto 20px;
-box-shadow:0 6px 20px var(--glow);
-animation: floatLogo 6s ease-in-out infinite; /* ใส่ animation ที่นี่ */
-background: var(--pink-soft);
-display: flex;
-align-items: center;
-justify-content: center;
-}
-/* ================================================= */
-
 .logo img{width:100%;height:100%;object-fit:cover;}
 
 .badges{
@@ -157,9 +144,7 @@ background:var(--main);
 color:#fff;
 }
 
-.btn-main:hover {
-    background: var(--dark);
-}
+.btn-main:hover { background: var(--dark); }
 
 .step{
 display:flex;
@@ -232,64 +217,55 @@ border:1px solid var(--main);
 <div class="container">
 
 <div class="section center" style="border:none;box-shadow:none;background:transparent;">
-
 <div class="logo">
 <img src="logo.jpg" alt="Ameriluvmoo" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=&quot;font-size:40px&quot;>🍀</span>'">
 </div>
 
 <h1>Ameriluvmoo</h1>
 <p style="color:var(--dark);opacity:.8;margin:10px 0 20px; font-weight: 500;">
-อาเมริรับแต่งฟอร์ม ซิม นะคะ สอบถามเพิ่มเติมดีเอมมาได้เลย ! 🎀
+อาเมริรับแต่งฟอร์ม,ซิมนะคะ สอบถามเพิ่มเติมดีเอมมาได้เลย ! ✨
 </p>
 
 <div class="badges">
-<div class="badge">🎼 รับแต่งฟอร์ม</div>
+<div class="badge">🎀 รับแต่งฟอร์ม</div>
 <div class="badge">🍀 รับแต่งซิม</div>
-<div class="badge">🎀 ราคาถูก</div>
-<div class="badge">🪄 มีมนต์ขลัง</div> </div>
+
+</div>
 
 <a href="https://line.me/ti/p/spUXkAegyd" target="_blank" class="btn btn-outline">
-เช็คคิวงานที่นี่ ✨
+เช็คคิวงานจิ้ม 👇🏻
 </a>
 </div>
 
 <div class="section">
 <h2>📝 ขั้นตอนสั่งงาน</h2>
-
 <div class="step"><div class="step-num">1</div><div>เลือกแพ็คเกจฟอร์มที่ต้องการ</div></div>
 <div class="step"><div class="step-num">2</div><div>ส่งรายละเอียด/บรีฟงาน</div></div>
 <div class="step"><div class="step-num">3</div><div>ชำระเงินตามยอดที่แจ้ง</div></div>
 <div class="step"><div class="step-num">4</div><div>รอรับงานตามคิวที่แจ้งไว้</div></div>
 <div class="step"><div class="step-num">5</div><div>ตรวจสอบความเรียบร้อย</div></div>
-
 <a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">ทักแชทสั่งงานเลย 💬</a>
 </div>
 
 <div class="section">
-<h2>💰 ราคางานฟอร์ม</h2>
-
+<h2>💰 แพ็คเกจงานฟอร์ม</h2>
 <div class="price-row"><span>ฟอร์มสั้น</span><span class="price-tag">10฿+</span></div>
 <div class="price-row"><span>ฟอร์มยาว</span><span class="price-tag">20฿+</span></div>
 <div class="price-row"><span>5 ฟอร์ม</span><span class="price-tag">35฿</span></div>
 <div class="price-row"><span>10 ฟอร์ม</span><span class="price-tag">75฿</span></div>
 <div class="price-row"><span>15 ฟอร์ม</span><span class="price-tag">130฿</span></div>
 <div class="price-row"><span>20 ฟอร์ม</span><span class="price-tag">170฿</span></div>
-
 <a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">สอบถามราคาอื่นๆ</a>
 </div>
 
 <div class="footer">
-<a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">ติดต่อสอบถามคลิก 🎀</a>
-
+<a href="https://line.me/ti/p/v5pMQcDUzh" class="btn btn-main">ติดต่อสอบถามเพิ่มเติม 👇🏻</a>
 <div class="socials">
 <a href="https://www.facebook.com/share/1Agw34NCNf/" target="_blank">Facebook</a>
 <a href="https://www.instagram.com/jalloluvameri?igsh=MXE5eDI3bXY0N255bw==" target="_blank">Instagram</a>
 <a href="https://line.me/ti/p/v5pMQcDUzh" target="_blank">LINE</a>
 </div>
-
-<p class="small">
-© 2026 Ameriluvmoo
-</p>
+<p class="small">© 2026 Ameriluvmoo</p>
 </div>
 
 </div>
@@ -297,53 +273,33 @@ border:1px solid var(--main);
 <script>
 function createFloatingEmojis() {
     const container = document.getElementById('floating-emojis');
-    const emojis = ['🎼', '🍀', '🎀', '🪄'];
-    const emojiCount = 30; // จำนวนอิโมจิทั้งหมด
+    const emojis = ['🪄', '🎼', '🎀', '🍀'];
+    const count = 35;
 
-    for (let i = 0; i < emojiCount; i++) {
-        const emojiEl = document.createElement('div');
-        emojiEl.className = 'floating-emoji';
-        emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-emoji';
+        span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        const left = Math.random() * 100;
+        const duration = 10 + Math.random() * 15;
+        const delay = Math.random() * -20;
+        const size = 15 + Math.random() * 25;
+        
+        // สุ่มความเข้ม (Opacity) ให้มีทั้งจางมากและเข้มชัด
+        const opacities = [0.05, 0.1, 0.2, 0.4, 0.6];
+        const opacity = opacities[Math.floor(Math.random() * opacities.length)];
 
-        // สุ่มคุณสมบัติเพื่อให้ดู "อิสระ" และมี "ระยะ"
-        
-        // 1. ตำแหน่งแนวแกน X (สุ่มทั่วหน้าจอ)
-        const left = Math.random() * 100; // 0% - 100%
-        
-        // 2. ความเร็ว (Duration) สุ่มระหว่าง 8s - 20s
-        const duration = 8 + Math.random() * 12; 
-        
-        // 3. เวลาเริ่มลอย (Delay) สุ่มเพื่อให้ลอยไม่พร้อมกัน
-        const delay = Math.random() * 15;
+        span.style.left = left + '%';
+        span.style.fontSize = size + 'px';
+        span.style.opacity = opacity;
+        span.style.animation = `glassShake ${duration}s linear infinite`;
+        span.style.animationDelay = delay + 's';
 
-        // 4. ความเข้มและขนาด (ความลึก)
-        // - อิโมจิที่อยู่ "ลึก" (ไกล) จะตัวเล็กกว่าและจางกว่า
-        // - อิโมจิที่อยู่ "ตื้น" (ใกล้) จะตัวโตกว่าและเข้มกว่า
-        const depth = Math.random(); // 0 (ไกล) ถึง 1 (ใกล้)
-        
-        const fontSize = 10 + depth * 20; // 10px ถึง 30px
-        const baseOpacity = 0.1 + depth * 0.3; // 0.1 (ไกล) ถึง 0.4 (ใกล้)
-        const wobble = -50 + Math.random() * 100; // การส่ายแนวแกน X
-
-        // กำหนด Inline CSS variables
-        emojiEl.style.left = `${left}%`;
-        emojiEl.style.fontSize = `${fontSize}px`;
-        emojiEl.style.animationName = 'floatAndFade';
-        emojiEl.style.animationDuration = `${duration}s`;
-        emojiEl.style.animationDelay = `${delay}s`;
-        emojiEl.style.animationTimingFunction = 'linear';
-        emojiEl.style.animationIterationCount = 'infinite';
-        
-        // ใช้ custom variables ใน animation
-        emojiEl.style.setProperty('--base-opacity', baseOpacity);
-        emojiEl.style.setProperty('--wobble', `${wobble}px`);
-
-        container.appendChild(emojiEl);
+        container.appendChild(span);
     }
 }
-
-// เริ่มทำงานเมื่อโหลดหน้าเว็บ
-window.addEventListener('load', createFloatingEmojis);
+window.onload = createFloatingEmojis;
 </script>
 
 </body>
