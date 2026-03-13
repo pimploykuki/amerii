@@ -9,7 +9,7 @@
 
 <style>
 :root{
-/* ปรับโทนสีเป็น เขียว ชมพู ครีม ตามที่ขอ */
+/* โทนสีเดิมที่คุณเลือก เขียว ชมพู ครีม */
 --bg:#F9FBE7; /* ครีมเขียวอ่อน */
 --main:#A5D6A7; /* เขียวพาสเทล */
 --dark:#D81B60; /* ชมพูเข้มสำหรับตัวหนังสือ */
@@ -22,16 +22,60 @@
 
 body{
 background: var(--bg);
-/* เพิ่มอิโมจิรอบๆ พื้นหลัง */
-background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-size='12'%3E🎼%3C/text%3E%3Ctext x='50' y='80' font-size='12'%3E🍀%3C/text%3E%3Ctext x='80' y='20' font-size='12'%3E🎀%3C/text%3E%3C/svg%3E");
 display:flex;
 justify-content:center;
+position: relative; /* สำคัญสำหรับ elements ที่ลอย */
+overflow-x: hidden; /* กันสกอลบาร์แนวนอน */
+min-height: 100vh;
 }
+
+/* ================================================= */
+/* === [CSS แก้ไขใหม่] เพิ่มระบบอิโมจิลอยอย่างอิสระ === */
+/* ================================================= */
+
+/* container สำหรับอิโมจิ */
+#floating-emojis {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* เพื่อให้คลิกทะลุไปที่เว็บได้ */
+    z-index: 0; /* อยู่หลังเนื้อหา */
+}
+
+.floating-emoji {
+    position: absolute;
+    opacity: 0; /* เริ่มต้นซ่อนไว้ */
+    will-change: transform, opacity;
+}
+
+/* Animation สำหรับอิโมจิลอย */
+@keyframes floatAndFade {
+    0% {
+        transform: translateY(110vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: var(--base-opacity); /* ความเข้มที่กำหนดไว้ */
+    }
+    90% {
+        opacity: var(--base-opacity);
+    }
+    100% {
+        transform: translateY(-10vh) translateX(var(--wobble)); /* ลอยขึ้นและส่าย */
+        opacity: 0;
+    }
+}
+
+/* ================================================= */
 
 .container{
 max-width:500px;
 width:100%;
 padding:20px 15px 40px;
+position: relative; /* ให้ container อยู่เหนือกราฟิกพื้นหลัง */
+z-index: 1; 
 }
 
 .section{
@@ -46,11 +90,15 @@ border:2px solid var(--main);
 h1,h2,h3{color:var(--dark);}
 .center{text-align:center;}
 
-/* Animation โลโก้ลอยขึ้นลง */
-@keyframes float {
-	0% { transform: translateY(0px); }
-	50% { transform: translateY(-15px); }
-	100% { transform: translateY(0px); }
+/* ================================================= */
+/* === [CSS แก้ไขใหม่] โลโก้ลอยนุ่มนวลขึ้น === */
+/* ================================================= */
+@keyframes floatLogo {
+    0% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-12px) rotate(1deg); }
+    50% { transform: translateY(-5px) rotate(-1deg); }
+    75% { transform: translateY(-15px) rotate(0deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .logo{
@@ -59,12 +107,13 @@ border-radius:50%;
 overflow:hidden;
 margin:0 auto 20px;
 box-shadow:0 6px 20px var(--glow);
-animation: float 3s ease-in-out infinite; /* ใส่ animation ที่นี่ */
-background: var(--pink-soft); /* รองรับกรณีไม่มีรูปโลโก้ */
+animation: floatLogo 6s ease-in-out infinite; /* ใส่ animation ที่นี่ */
+background: var(--pink-soft);
 display: flex;
 align-items: center;
 justify-content: center;
 }
+/* ================================================= */
 
 .logo img{width:100%;height:100%;object-fit:cover;}
 
@@ -178,6 +227,8 @@ border:1px solid var(--main);
 </head>
 
 <body>
+<div id="floating-emojis"></div>
+
 <div class="container">
 
 <div class="section center" style="border:none;box-shadow:none;background:transparent;">
@@ -195,7 +246,7 @@ border:1px solid var(--main);
 <div class="badge">🎼 รับแต่งฟอร์ม</div>
 <div class="badge">🍀 รับแต่งซิม</div>
 <div class="badge">🎀 ราคาถูก</div>
-</div>
+<div class="badge">🪄 มีมนต์ขลัง</div> </div>
 
 <a href="https://line.me/ti/p/spUXkAegyd" target="_blank" class="btn btn-outline">
 เช็คคิวงานที่นี่ ✨
@@ -242,5 +293,58 @@ border:1px solid var(--main);
 </div>
 
 </div>
+
+<script>
+function createFloatingEmojis() {
+    const container = document.getElementById('floating-emojis');
+    const emojis = ['🎼', '🍀', '🎀', '🪄'];
+    const emojiCount = 30; // จำนวนอิโมจิทั้งหมด
+
+    for (let i = 0; i < emojiCount; i++) {
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'floating-emoji';
+        emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // สุ่มคุณสมบัติเพื่อให้ดู "อิสระ" และมี "ระยะ"
+        
+        // 1. ตำแหน่งแนวแกน X (สุ่มทั่วหน้าจอ)
+        const left = Math.random() * 100; // 0% - 100%
+        
+        // 2. ความเร็ว (Duration) สุ่มระหว่าง 8s - 20s
+        const duration = 8 + Math.random() * 12; 
+        
+        // 3. เวลาเริ่มลอย (Delay) สุ่มเพื่อให้ลอยไม่พร้อมกัน
+        const delay = Math.random() * 15;
+
+        // 4. ความเข้มและขนาด (ความลึก)
+        // - อิโมจิที่อยู่ "ลึก" (ไกล) จะตัวเล็กกว่าและจางกว่า
+        // - อิโมจิที่อยู่ "ตื้น" (ใกล้) จะตัวโตกว่าและเข้มกว่า
+        const depth = Math.random(); // 0 (ไกล) ถึง 1 (ใกล้)
+        
+        const fontSize = 10 + depth * 20; // 10px ถึง 30px
+        const baseOpacity = 0.1 + depth * 0.3; // 0.1 (ไกล) ถึง 0.4 (ใกล้)
+        const wobble = -50 + Math.random() * 100; // การส่ายแนวแกน X
+
+        // กำหนด Inline CSS variables
+        emojiEl.style.left = `${left}%`;
+        emojiEl.style.fontSize = `${fontSize}px`;
+        emojiEl.style.animationName = 'floatAndFade';
+        emojiEl.style.animationDuration = `${duration}s`;
+        emojiEl.style.animationDelay = `${delay}s`;
+        emojiEl.style.animationTimingFunction = 'linear';
+        emojiEl.style.animationIterationCount = 'infinite';
+        
+        // ใช้ custom variables ใน animation
+        emojiEl.style.setProperty('--base-opacity', baseOpacity);
+        emojiEl.style.setProperty('--wobble', `${wobble}px`);
+
+        container.appendChild(emojiEl);
+    }
+}
+
+// เริ่มทำงานเมื่อโหลดหน้าเว็บ
+window.addEventListener('load', createFloatingEmojis);
+</script>
+
 </body>
 </html>
